@@ -1,42 +1,134 @@
-description = "Generates a comprehensive design document (docs/design.md) with Mermaid UML diagrams by analyzing the entire codebase."
+description = "Generates a comprehensive, multi-view system design document (docs/design.md) with detailed explanations and Mermaid UML diagrams by analyzing the entire codebase."
 prompt = """
-You are an expert software architect and documentation agent. Your mission is to perform a deep, analytical scan of the entire project codebase to understand its architecture, data models, and key functionalities. Based on this analysis, you will generate a comprehensive design document named `docs/design.md` containing a project summary and key architectural diagrams in Mermaid format.
+You are an expert software architect and documentation agent. Your mission is to perform a deep, analytical scan of the entire project codebase to generate a comprehensive, multi-view design document named `docs/design.md`. This document should serve as a single source of truth for the system's architecture, data models, key processes, and deployment strategy.
 
 If an existing `docs/design.md` file is present, you must intelligently merge and update its contents. If the new content cannot be cleanly merged, move the old content to the bottom of the file under a clear separator and a heading titled "### Previous Content" for user review.
 
 **Execution Flow:**
 
-1.  **Full Codebase Scan & Initial Analysis:**
-    *   Begin by recursively scanning the entire repository. Analyze file and directory names, and inspect key configuration files (`package.json`, `pom.xml`, `pyproject.toml`, etc.) to identify the project's primary technologies, dependencies, and overall structure.
-    *   From this initial scan, infer the project's main purpose and write a brief summary.
+1.  **Initial Analysis & Overview:**
+    *   Recursively scan the repository to identify the project's primary technologies, dependencies, and overall structure from files like `package.json`, `pom.xml`, `pyproject.toml`, etc.
+    *   Infer the project's main purpose, defining its goals and non-goals.
+    *   Generate a detailed "Technology Stack" section.
 
-2.  **Identify Core Components & Architecture:**
-    *   Analyze directory structures and module definitions (e.g., `src/`, `pkg/`, `services/`, `controllers/`) to identify the high-level logical components of the system (e.g., `api-gateway`, `user-service`, `database-models`).
-    *   Generate a Mermaid **Component Diagram** that visualizes these major components and illustrates their primary relationships or dependencies.
+2.  **Architectural Views (4+1 Model):**
+    *   **Logical View:** Analyze directory structures (`src/`, `services/`, etc.) to identify high-level logical components. Generate a Mermaid **Component Diagram** showing these components and their dependencies.
+    *   **Development View:** Analyze the source code's organization into modules, packages, or namespaces. Generate a Mermaid `graph TD` diagram to represent this **Package Diagram**, showing how the code is structured.
+    *   **Process View:** Trace the execution paths for 2-3 key business functionalities (e.g., user registration, order processing). For each, generate a Mermaid **Sequence Diagram** illustrating the runtime interactions between components.
+    *   **Deployment View:** Infer the deployment strategy from files like `Dockerfile`, `cloudbuild.yaml`, or `serverless.yml`. Generate a Mermaid **Deployment Diagram** showing how components are deployed to infrastructure (e.g., servers, containers, serverless functions).
 
-3.  **Analyze Data Structures:**
-    *   Inspect the source code for class definitions, database schemas, ORM models, or type interfaces that define the core data entities (e.g., `User`, `Order`, `Product`).
-    *   To manage complexity, identify the **5-7 most central data entities** that are fundamental to the application's purpose.
-    *   Generate a Mermaid **Class Diagram** showing these primary data entities, their key attributes, methods, and the relationships between them (e.g., inheritance, association).
+3.  **Data Design:**
+    *   **Data Model:** Inspect the code for class definitions, schemas, or ORM models to identify the 5-7 most central data entities. Generate a Mermaid **Class Diagram** showing these entities, their attributes, and relationships.
+    *   **State Lifecycle:** For 1-2 of the most critical entities (e.g., `Order`, `User`), analyze the code to understand its state transitions. Generate a Mermaid **State Diagram** to model its lifecycle (e.g., `Pending` -> `Processing` -> `Shipped`).
 
-4.  **Map Key Interaction Flows:**
-    *   Identify the main application entry points (e.g., `main()` functions, `index.js`, `app.py`) and primary API route handlers.
-    *   Trace the execution paths for **2-3 representative, non-trivial business functionalities**. Prioritize flows that involve multiple components and demonstrate core value (e.g., a user registration flow that touches an API, a service, and a database).
-    *   For each selected flow, generate a Mermaid **Sequence Diagram** showing the sequence of calls between the different components, classes, or functions.
+4.  **Cross-Cutting Concerns:**
+    *   Analyze the codebase to infer and briefly document the project's approach to:
+        *   **Security:** (e.g., authentication libraries, authorization patterns).
+        *   **Scalability:** (e.g., use of connection pooling, stateless services).
+        *   **Logging & Monitoring:** (e.g., logging libraries, health check endpoints).
 
 **Output Requirements:**
 
-*   You must create or update a single file named `docs/design.md`.
-*   The file must be well-formatted Markdown.
-*   Structure the document with the following headings:
-    *   `# Project Architectural Design`
-    *   `## 1. Project Summary`
-    *   `## 2. Component Diagram`
-    *   `## 3. Core Data Model (Class Diagram)`
-    *   `## 4. Key Interaction Flows (Sequence Diagrams)`
-*   Under each heading, provide a brief (1-2 sentence) English description of the diagram's purpose.
-*   All diagrams must be written in valid Mermaid syntax and enclosed in a `mermaid` code block.
-*   If you cannot confidently determine a detail, make a logical assumption and add a comment within the Mermaid code (e.g., `%% Note: Relationship inferred based on naming conventions.`) for human review.
+*   You must create or update a single, well-formatted Markdown file named `docs/design.md`.
+*   The document must follow the structure defined in the **Comprehensive Design Document Template** below.
+*   All diagrams must be in valid Mermaid syntax, enclosed in a `mermaid` code block, and preceded by a brief English description.
+*   If a detail cannot be determined, make a logical assumption and add a `%% Note: ...` comment within the Mermaid code.
 
-Begin the analysis now and generate the `docs/design.md` file.
+---
+## Comprehensive Design Document Template
+
+*(You MUST use this template when creating `docs/design.md`)*
+
+````markdown
+# System Design: {{Project Name}}
+
+**Last Updated:** {{current_date}}
+
+## 1. Introduction
+
+### 1.1. Project Overview & Purpose
+*(A detailed paragraph explaining what the project does and the problem it solves.)*
+
+### 1.2. Goals & Non-Goals
+*   **Goals:** *(Bulleted list of primary objectives)*
+*   **Non-Goals:** *(Bulleted list of what is explicitly out of scope)*
+
+### 1.3. Technology Stack
+*(A list of the primary languages, frameworks, databases, and key libraries identified.)*
+
+---
+
+## 2. Architectural Views
+
+### 2.1. Logical View (Component Diagram)
+*(This diagram shows the high-level, logical components of the system and how they are interconnected.)*
+```mermaid
+componentDiagram
+    ...
+```
+
+### 2.2. Development View (Package Diagram)
+*(This diagram illustrates how the source code is organized into packages, modules, or namespaces.)*
+```mermaid
+graph TD
+    ...
+```
+
+### 2.3. Process View (Sequence Diagrams)
+*(These diagrams show how components interact at runtime to accomplish key tasks.)*
+
+**Use Case 1: {{Name of Flow}}**
+```mermaid
+sequenceDiagram
+    ...
+```
+
+**Use Case 2: {{Name of Flow}}**
+```mermaid
+sequenceDiagram
+    ...
+```
+
+### 2.4. Deployment View
+*(This diagram shows how the system's components are deployed onto physical or virtual infrastructure.)*
+```mermaid
+deploymentDiagram
+    ...
+```
+
+---
+
+## 3. Data Design
+
+### 3.1. Core Data Model (Class Diagram)
+*(This diagram represents the main data entities, their attributes, and their relationships.)*
+```mermaid
+classDiagram
+    ...
+```
+
+### 3.2. Entity State Lifecycle (State Diagram)
+*(This diagram models the lifecycle of a critical data entity as it transitions through different states.)*
+
+**Lifecycle of `{{Entity Name}}`:**
+```mermaid
+stateDiagram-v2
+    ...
+```
+
+---
+
+## 4. Cross-Cutting Concerns
+
+### 4.1. Security
+*(Brief description of the authentication, authorization, and data protection strategies.)*
+
+### 4.2. Scalability
+*(Brief description of the design considerations for handling increased load.)*
+
+### 4.3. Logging & Monitoring
+*(Brief description of the approach to logging, metrics, and system health checks.)*
+````
+
+Begin the analysis now and generate the comprehensive `docs/design.md` file.
 """
