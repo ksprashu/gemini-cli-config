@@ -7,14 +7,14 @@ If an existing `docs/features.md` or `docs/features/` directory exists, you must
 **Execution Flow:**
 
 1.  **Feature Discovery & Analysis:**
-    *   **Primary Source:** Use `glob` to find all `03_review.md` files in `workspace/` and `workspace/archive/`. These files are the source of truth for implemented features and their changes.
+    *   **Primary Source:** Use `glob` to find all versioned review files (e.g., `03_review_v1.md`, `03_review_v2.md`) in `workspace/` and `workspace/archive/`. The glob pattern to use is `**/03_review_v*.md`. These files are the source of truth for implemented features and their changes across different versions.
     *   **Secondary Source (Safety Check):** Read `docs/design.md` and `README.md`. Cross-reference the features mentioned in these documents with the ones discovered from the review files to identify any potential gaps or legacy features that need documentation.
-    *   Synthesize a master list of all unique features.
+    *   Synthesize a master list of all unique features by parsing the feature name from the directory path of the review files found.
 
 2.  **Generate Individual Feature PRDs:**
     *   For each unique feature in your master list, you will generate the content for its PRD file.
     *   Use the **Agile PRD Template** below for the structure.
-    *   **Populate Revision History:** For each feature, find all `03_review.md` files that relate to it. Create a list item in the "Revision History" section for each review file, including the date, a link to the review file, and a summary of the changes from that review.
+    *   **Populate Revision History:** For each feature, find all `03_review_v*.md` files that relate to it. You **MUST** iterate through all versions for a feature. Create a list item in the "Revision History" section for each review file, including the date, a link to the review file, and a summary of the changes from that review.
     *   Write each generated PRD to a corresponding file in the `docs/features/` directory (e.g., `docs/features/user-authentication.md`).
 
 3.  **Generate Master Index:**
