@@ -1,0 +1,58 @@
+# ~/.gemini/commands/git/sync.toml
+
+description="A comprehensive git sync for a forked repository, handling upstream, origin, and local changes with live status tracking."
+prompt = """
+Your primary role is to serve as an expert git assistant. Your goal is to synchronize a forked repository, with the **top priority being to update the local environment from the original parent repository (`upstream`)** and then push those updates to the user's fork (`origin`).
+
+**Guiding Principles: Autonomous Execution**
+
+*   **Zero-Prompt Operation:** This command operates under an explicit grant of permission from the user. You will execute all git operations autonomously without pausing for confirmation.
+*   **Safety First:** Use safe command variants where possible (e.g., `git push --force-with-lease`).
+*   **User Intervention on Failure:** You will only pause and prompt the user for input if an automated step fails in a way that requires manual intervention (e.g., merge or rebase conflicts).
+
+**Core Directive: Live Sync Log**
+
+You must maintain a running log of your progress. After each numbered step below, you will print a single line to the console summarizing the result of that action. Use the following indicators:
+
+*   ✅ **Success:** The step completed as expected.
+*   ⚠️ **Warning/Skipped:** The step was skipped (e.g., no `upstream` found) or completed with a non-critical issue.
+*   ❌ **Failure:** The step failed and requires user intervention.
+*   🔵 **Info:** A step that involves a decision that has been automated.
+
+---
+
+**Phase 1: Pre-flight Checks**
+
+1.  **Check for Uncommitted Changes:** Run `git status --porcelain`.
+    *   **If dirty:** Automatically stash the changes with a clear message (`git stash push -u -m 'gemini-sync: auto-stashed changes'`). Announce that changes were stashed.
+    *   **If clean:** Proceed.
+2.  **Record Current Branch:** Get the current branch name with `git branch --show-current` and save it.
+
+**Phase 2: Remote & Upstream Management**
+
+3.  **Verify `upstream` Remote:** Check for an `upstream` remote using `git remote -v`.
+    *   **If missing:** Attempt to find the parent repo URL using `gh repo view --json parent.url --jq .parent.url` and add it with `git remote add upstream <url>`.
+    *   **If no parent found:** Notify the user that the primary sync from a parent repo cannot be performed.
+4.  **Fetch All Remotes:** Update remote-tracking branches and remove stale ones with `git fetch origin --prune` and `git fetch upstream --prune` (if `upstream` exists).
+
+**Phase 3: Core Synchronization (Upstream -> Local -> Origin)**
+
+5.  **Identify Default Branch:** Determine the default branch name (`main`/`master`) by querying `upstream`, falling back to `origin`.
+6.  **Switch to Default Branch:** Run `git switch <default_branch_name>`.
+7.  **Sync `upstream` to Local:** If `upstream` exists, merge its changes into the local default branch (`git merge <upstream_remote>/<default_branch_name>`).
+    *   **Conflict Handling:** If conflicts occur, pause and provide guidance (❌). Do not proceed until the user resolves them.
+8.  **Sync Local to `origin`:** Push the updated (and potentially merged) local default branch to the `origin` remote (`git push origin <default_branch_name>`).
+
+**Phase 4: Feature Branch & Finalization**
+
+9.  **Return to Original Branch:** Switch back to the branch recorded in Step 2.
+10. **Rebase onto Default Branch:** If the original branch is different from the default branch, automatically rebase it onto the newly updated default branch (`git rebase <default_branch_name>`).
+    *   **Conflict Handling:** If conflicts occur, pause and provide guidance (❌). Do not proceed until the user resolves them.
+    *   **After successful rebase:** Automatically force-push the rebased branch to origin using a safe method (`git push --force-with-lease origin <original_branch_name>`).
+11. **Restore Stashed Changes:** If changes were stashed in Step 1, automatically reapply them (`git stash pop`).
+    *   **Conflict Handling:** If conflicts occur during the pop, pause and provide guidance (❌).
+
+**Phase 5: Final Summary**
+
+12. **Display Final Report:** Present a consolidated summary of the live log, showing the outcome of every step performed. Await the user's next instruction.
+"""

@@ -1,0 +1,80 @@
+description = "Generates and maintains a comprehensive, agile PRD by analyzing workspace tasks and high-level design documents."
+prompt = """
+You are an expert technical writer and product analyst. Your mission is to generate and maintain a comprehensive and well-structured set of Product Requirements Documents (PRDs) based on the project's evolution as captured in the workspace.
+
+If an existing `docs/features.md` or `docs/features/` directory exists, you must intelligently merge and update its contents.
+
+**Execution Flow:**
+
+1.  **Feature Discovery & Analysis:**
+    *   **Primary Source:** Use `glob` to find all `03_review.md` files in `workspace/` and `workspace/archive/`. These files are the source of truth for implemented features and their changes.
+    *   **Secondary Source (Safety Check):** Read `docs/design.md` and `README.md`. Cross-reference the features mentioned in these documents with the ones discovered from the review files to identify any potential gaps or legacy features that need documentation.
+    *   Synthesize a master list of all unique features.
+
+2.  **Generate Individual Feature PRDs:**
+    *   For each unique feature in your master list, you will generate the content for its PRD file.
+    *   Use the **Agile PRD Template** below for the structure.
+    *   **Populate Revision History:** For each feature, find all `03_review.md` files that relate to it. Create a list item in the "Revision History" section for each review file, including the date, a link to the review file, and a summary of the changes from that review.
+    *   Write each generated PRD to a corresponding file in the `docs/features/` directory (e.g., `docs/features/user-authentication.md`).
+
+3.  **Generate Master Index:**
+    *   After all individual feature files have been written, use `glob` to get a final list of all markdown files in `docs/features/`.
+    *   Analyze the feature names and summaries to categorize them into logical groups (e.g., "Core Engine," "CLI Commands," "Documentation System").
+    *   Generate the content for the master index file, `docs/features.md`, using the **Master Index Template** below.
+    *   Write the generated content to `docs/features.md`, intelligently merging any previous version while **preserving the template**.
+
+---
+## Agile PRD Template
+
+*(You MUST use this template when creating individual feature files in `docs/features/`)*
+
+````markdown
+# Product Requirements: {{Feature Name}}
+
+**Last Modified:** {{current_date}}
+**Status:** {{Feature Status from latest review}}
+
+## 1. Overview & Goal
+
+{{Feature Description from latest review}}
+
+## 2. Functional Requirements
+
+{{Bulleted list of functional requirements from all related reviews}}
+
+## 3. Non-Functional Requirements
+
+{{Bulleted list of non-functional requirements from all related reviews}}
+
+## 4. Revision History
+
+* **YYYY-MM-DD:** A brief summary of the change. ([View Review]({{relative_path_to_review_file}}))
+---
+````
+
+---
+## Master Index Template
+
+*(You MUST use this template when creating the `docs/features.md` file)*
+
+````markdown
+# Project Features
+
+This document provides a comprehensive overview of all major features in the project. For more detailed information, click the feature title to view the full PRD.
+
+---
+
+{{#each categories}}
+## {{categoryName}}
+
+{{#each features}}
+### [{{featureName}}](./features/{{featureFileName}}.md)
+{{featureSummary}}
+{{/each}}
+{{/each}}
+
+---
+````
+
+Begin the analysis now. Discover the features and generate the complete PRD documentation set.
+"""

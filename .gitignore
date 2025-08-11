@@ -1,0 +1,10 @@
+.env
+*.md.bak.*
+archive/
+tmp/
+user_id
+history/
+google_account_id
+google_accounts.json
+oauth_creds.json
+installation_id

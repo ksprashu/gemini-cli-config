@@ -1,0 +1,26 @@
+{
+  "theme": "Default",
+  "selectedAuthType": "gemini-api-key",
+  "preferredEditor": "vscode",
+  "autoAccept": false,
+  "checkpointing": {
+    "enabled": true
+  },
+  "usageStatisticsEnabled": true,
+  "context": {
+    "ignore": [
+      "/Users/ksprashanth/.Trash"
+    ]
+  },
+  "mcpServers": {
+    "context7": {
+      "httpUrl": "https://mcp.context7.com/mcp"
+    },
+    "github": {
+      "httpUrl": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer $GITHUB_PERSONAL_ACCESS_TOKEN"
+      }
+    }
+  }
+}

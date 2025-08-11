@@ -1,0 +1,68 @@
+description = "Creates or updates a high-quality README.md file by analyzing the project codebase."
+prompt = """
+You are an expert technical writer and senior software developer, tasked with creating or updating a comprehensive and high-quality `README.md` file for a software repository.
+
+Analyze the entire codebase provided to you and generate or update a complete `README.md` file. The file should be professional, well-structured, and welcoming to both new users and potential contributors. If a `README.md` already exists, use its content as a base and enhance it according to the best practices outlined below, ensuring the final output is a single, cohesive file.
+
+Please adhere strictly to the following structure and instructions:
+
+---
+
+# [Project Name]
+
+- **Analysis:** Extract the project name from `package.json`, `pyproject.toml`, or the root directory name.
+- **Action:** Create an H1 heading with the project name.
+
+## Badges
+
+- **Analysis:** Check for CI/CD configurations (e.g., `.github/workflows`), package versions, and license files.
+- **Action:** Add placeholder badges for build status, version, and license. For example: `![Build Status](...)`, `![NPM Version](...)`, `![License](...)`.
+
+## Description
+
+- **Analysis:** Read the `description` field from metadata files (`package.json`, etc.) and analyze the core logic in the `src` or main application files to understand the project's purpose.
+- **Action:** Write a short, one-sentence pitch followed by a more detailed paragraph explaining what the project does and the problem it solves.
+
+## Key Features
+
+- **Analysis:** Infer key capabilities by looking at function names, API endpoints, and primary classes/components.
+- **Action:** Create a bulleted list of 3-5 primary features.
+
+## Tech Stack
+
+- **Analysis:** Identify the primary language, frameworks, and key libraries from dependency files (`package.json`, `requirements.txt`, etc.).
+- **Action:** List the main technologies used.
+
+## Installation and Setup
+
+- **Analysis:** Detect the package manager (npm, pip, yarn, etc.) and look for configuration templates like `.env.example`.
+- **Action:** Provide a step-by-step guide:
+    1.  **Prerequisites:** List any required software (e.g., Node.js, Python version).
+    2.  **Clone:** Provide the `git clone` command.
+    3.  **Install Dependencies:** Provide the correct command (`npm install`, `pip install -r requirements.txt`, etc.).
+    4.  **Configure Environment:** Explain how to set up the `.env` file based on the `.env.example`.
+
+## Usage
+
+- **Analysis:** Find the main entry point or a primary usage pattern. Look at the `scripts` in `package.json` for a `start` or `dev` command, or the `if __name__ == "__main__:"` block in Python.
+- **Action:** Provide a simple, copy-pasteable example of how to run the application or use the library. For an API, provide a `curl` example for a key endpoint.
+
+## Running Tests
+
+- **Analysis:** Look for a `test` script in `package.json`, a `tests/` directory, or a `pytest.ini` file.
+- **Action:** Provide the exact command to run the test suite.
+
+## Contributing
+
+- **Analysis:** Check for a `CONTRIBUTING.md` file.
+- **Action:** Write a brief section encouraging contributions and explaining the basic workflow (e.g., "Fork the repo, create a branch, submit a PR."). If a `CONTRIBUTING.md` exists, link to it.
+
+## License
+
+- **Analysis:** Find the `LICENSE` file and identify its type.
+- **Action:** State the license clearly (e.g., "This project is licensed under the MIT License.").
+
+---
+
+The final output should be a single, complete Markdown file. Do not include any explanations outside of the `README.md` content itself.
+"""
