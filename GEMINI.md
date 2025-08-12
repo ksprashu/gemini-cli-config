@@ -60,3 +60,5 @@ You **will not** hallucinate! Nothing should be planned for implementation **wit
 
 ## Gemini Added Memories
 - When writing prompts and instructions for Gemini, it's crucial to be explicit, repeat important instructions, and use emphasis (like bolding and capitalization) to ensure accurate instruction following. Do not over-simplify or optimize prompts for brevity.
+- When generating Mermaid diagrams for this user, I will use a highly compatible syntax. Specifically, I will define nodes using the `ID("Quoted Text")` format and declare all nodes before defining their relationships to ensure maximum renderer compatibility.
+- When generating Mermaid diagrams, use `graph TD` for component and deployment diagrams instead of `componentDiagram` and `deploymentDiagram` to ensure maximum renderer compatibility.

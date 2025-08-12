@@ -8,3 +8,12 @@ google_account_id
 google_accounts.json
 oauth_creds.json
 installation_id
+
+EXPLAIN.md
+GEMINI.*.md
+GEMINI.md.*
+PLAN.md
+STACKS.md
+SYSTEM.md
+WORKFLOW.md
+IMPLEMENT.md
