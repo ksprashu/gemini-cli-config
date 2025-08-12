@@ -122,6 +122,34 @@ You're all set! Restart the Gemini CLI. Once it has loaded, type the following c
 
 You should see the new commands like `/git:sync` and `/mode:think` listed in the output.
 
+### Advanced Setup: Using Symbolic Links
+
+For a cleaner setup that automatically stays in sync with this repository, you can use symbolic links (`ln -s`) instead of copying the files. This means any time you `git pull` the latest changes in this repo, your Gemini CLI is instantly updated.
+
+> **Note:** Make sure you are in the root of this cloned repository before running these commands.
+
+1.  **Link the `commands` directory:**
+    This will link the entire command suite to your Gemini configuration.
+    ```bash
+    # First, remove the copied directory if you created it earlier
+    rm -rf ~/.gemini/commands
+
+    # Create the symbolic link
+    ln -s "$(pwd)/commands" ~/.gemini/commands
+    ```
+
+2.  **Link the `GEMINI.md` template:**
+    This links the base AI instructions file.
+    ```bash
+    # First, remove the copied file if you created it earlier
+    rm -f ~/.gemini/GEMINI.md
+
+    # Create the symbolic link
+    ln -s "$(pwd)/GEMINI.cp" ~/.gemini/GEMINI.md
+    ```
+
+3.  **A Note on `settings.json`:**
+    We **do not** recommend symlinking the `settings.json` file, as it contains your personal preferences which you don't want to overwrite. Instead, you should manually merge the `mcpServers` configuration from this repository's `settings.json` into your own `~/.gemini/settings.json` file.
 
 ## Running Tests
 
