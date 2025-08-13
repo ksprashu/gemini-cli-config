@@ -15,6 +15,9 @@ For example:
 - "All new backend services must be written in Go."
 - "Before committing, run `npm run lint:fix`."
 -->
+- When adding or modifying commands, you must also update the documentation.
+- Create or update a `README.md` file within each command sub-folder (e.g., `/commands/repo/README.md`) to describe the purpose and workflow of the commands in that group.
+- Update the main `README.md` at the project root to ensure it accurately summarizes all available commands, their functions, and the installation process.
 [//]: # (USER_SECTION_END)
 
 ## 2. AI-Generated Project Analysis
