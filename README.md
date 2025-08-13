@@ -11,7 +11,7 @@ This repository contains the configuration files for the Gemini CLI, a powerful 
 ## Key Features
 
 *   **Structured Development Workflow:** Implements a `think`, `plan`, and `act` methodology for systematic feature development.
-*   **Automated Git Operations:** Includes a sophisticated `/git:sync` command to keep forked repositories up-to-date with upstream changes.
+*   **Expert Git Workflow:** Provides `/repo:commit` for rapid, local-only atomic checkpoints and `/repo:sync` for intelligently synchronizing with remote repositories using best practices.
 *   **Automated Documentation:** Commands to generate and maintain key project documents like `README.md`, `GEMINI.md`, and system design documents.
 *   **Configuration-Driven:** Command behavior is defined in simple `.toml` files, making it easy to customize and extend.
 
@@ -61,10 +61,10 @@ This method is straightforward and involves copying the files into your Gemini c
         ```bash
         cp -r commands/* ~/.gemini/commands/
         ```
-    *   **To copy specific command palettes (e.g., `git` and `mode`):**
+    *   **To copy specific command palettes (e.g., `repo` and `mode`):**
         ```bash
         mkdir -p ~/.gemini/commands
-        cp -r commands/git ~/.gemini/commands/
+        cp -r commands/repo ~/.gemini/commands/
         cp -r commands/mode ~/.gemini/commands/
         cp -r commands/setup ~/.gemini/commands/
         ```
@@ -101,8 +101,8 @@ This method links the configuration files from this repository directly to your 
     # Create the commands directory if it doesn't exist
     mkdir -p ~/.gemini/commands
 
-    # Example: Link the 'git', 'mode', and 'setup' palettes
-    ln -s "$(pwd)/commands/git" ~/.gemini/commands/git
+    # Example: Link the 'repo', 'mode', and 'setup' palettes
+    ln -s "$(pwd)/commands/repo" ~/.gemini/commands/repo
     ln -s "$(pwd)/commands/mode" ~/.gemini/commands/mode
     ln -s "$(pwd)/commands/setup" ~/.gemini/commands/setup
     ```
@@ -150,7 +150,7 @@ You're all set! Restart the Gemini CLI. Once it has loaded, type the following c
 
 `/help`
 
-You should see the new commands like `/git:sync` and `/mode:think` listed in the output.
+You should see the new commands like `/repo:commit`, `/repo:sync`, and `/mode:think` listed in the output.
 
 ## Running Tests
 
