@@ -40,11 +40,13 @@ cd gemini-cli-config
 
 ### 3. Install the Configurations
 
-You can either copy all the configurations or pick and choose the ones you need.
+You have two options for installing these configurations. You can either copy the files directly or use symbolic links to automatically sync any changes from this repository.
 
-#### Option A: Install Everything (Recommended)
+---
 
-This is the quickest way to get started.
+### Option 1: Copy Files (Simple)
+
+This method is straightforward and involves copying the files into your Gemini configuration directory.
 
 1.  **Copy the Core `GEMINI.md` Template:**
     This file provides a foundational set of instructions for the AI.
@@ -52,11 +54,20 @@ This is the quickest way to get started.
     cp GEMINI.cp ~/.gemini/GEMINI.md
     ```
 
-2.  **Copy All Commands:**
-    This will give you access to all the custom commands like `/git:sync` and the `/mode:*` workflow.
-    ```bash
-    cp -r commands/ ~/.gemini/
-    ```
+2.  **Copy the Command Palettes:**
+    You can copy all command palettes or pick and choose the ones you want.
+
+    *   **To copy all commands:**
+        ```bash
+        cp -r commands/* ~/.gemini/commands/
+        ```
+    *   **To copy specific command palettes (e.g., `git` and `mode`):**
+        ```bash
+        mkdir -p ~/.gemini/commands
+        cp -r commands/git ~/.gemini/commands/
+        cp -r commands/mode ~/.gemini/commands/
+        cp -r commands/setup ~/.gemini/commands/
+        ```
 
 3.  **Copy the Settings File:**
     This file includes pre-configured MCP (Multi-Context Prompt) servers for GitHub and Context7.
@@ -66,21 +77,40 @@ This is the quickest way to get started.
     cp settings.json ~/.gemini/
     ```
 
-#### Option B: Install Specific Components
+---
 
-If you only want certain commands or settings, you can copy them individually.
+### Option 2: Use Symbolic Links (Recommended for Developers)
 
-*   **To copy only the `git` commands:**
+This method links the configuration files from this repository directly to your Gemini setup. Any time you run `git pull` to get the latest updates, your CLI is instantly updated.
+
+> **Note:** Make sure you are in the root of this cloned repository before running these commands.
+
+1.  **Link the Core `GEMINI.md` Template:**
+    This links the base AI instructions file.
     ```bash
-    mkdir -p ~/.gemini/commands/git
-    cp commands/git/* ~/.gemini/commands/git/
+    # Remove the copied file if it exists
+    rm -f ~/.gemini/GEMINI.md
+    # Create the symbolic link
+    ln -s "$(pwd)/GEMINI.cp" ~/.gemini/GEMINI.md
     ```
 
-*   **To copy only the `mode` workflow commands:**
+2.  **Link Your Desired Command Palettes:**
+    Instead of linking the entire `commands` folder, you can link specific command palettes. This allows you to choose which sets of commands you want to use.
+
     ```bash
-    mkdir -p ~/.gemini/commands/mode
-    cp commands/mode/* ~/.gemini/commands/mode/
+    # Create the commands directory if it doesn't exist
+    mkdir -p ~/.gemini/commands
+
+    # Example: Link the 'git', 'mode', and 'setup' palettes
+    ln -s "$(pwd)/commands/git" ~/.gemini/commands/git
+    ln -s "$(pwd)/commands/mode" ~/.gemini/commands/mode
+    ln -s "$(pwd)/commands/setup" ~/.gemini/commands/setup
     ```
+
+3.  **A Note on `settings.json`:**
+    We **do not** recommend symlinking the `settings.json` file, as it contains your personal preferences which you don't want to overwrite. Instead, you should manually merge the `mcpServers` configuration from this repository's `settings.json` into your own `~/.gemini/settings.json` file.
+
+---
 
 ### 4. Configure the GitHub MCP Server
 
@@ -121,35 +151,6 @@ You're all set! Restart the Gemini CLI. Once it has loaded, type the following c
 `/help`
 
 You should see the new commands like `/git:sync` and `/mode:think` listed in the output.
-
-### Advanced Setup: Using Symbolic Links
-
-For a cleaner setup that automatically stays in sync with this repository, you can use symbolic links (`ln -s`) instead of copying the files. This means any time you `git pull` the latest changes in this repo, your Gemini CLI is instantly updated.
-
-> **Note:** Make sure you are in the root of this cloned repository before running these commands.
-
-1.  **Link the `commands` directory:**
-    This will link the entire command suite to your Gemini configuration.
-    ```bash
-    # First, remove the copied directory if you created it earlier
-    rm -rf ~/.gemini/commands
-
-    # Create the symbolic link
-    ln -s "$(pwd)/commands" ~/.gemini/commands
-    ```
-
-2.  **Link the `GEMINI.md` template:**
-    This links the base AI instructions file.
-    ```bash
-    # First, remove the copied file if you created it earlier
-    rm -f ~/.gemini/GEMINI.md
-
-    # Create the symbolic link
-    ln -s "$(pwd)/GEMINI.cp" ~/.gemini/GEMINI.md
-    ```
-
-3.  **A Note on `settings.json`:**
-    We **do not** recommend symlinking the `settings.json` file, as it contains your personal preferences which you don't want to overwrite. Instead, you should manually merge the `mcpServers` configuration from this repository's `settings.json` into your own `~/.gemini/settings.json` file.
 
 ## Running Tests
 
