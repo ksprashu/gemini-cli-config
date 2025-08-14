@@ -36,7 +36,8 @@ The core of this system is a feature-centric workspace located in the `workspace
     1.  It reads the latest analysis file from the `think` phase.
     2.  It creates a new plan file with the **same version number** (e.g., `02_plan_v2.md`).
     3.  **Crucially, this plan does NOT contain code snippets.** Instead, it contains clear, natural-language instructions for each task.
--   **Output**: A markdown file containing a detailed, instructional checklist. **This command does not execute any code.**
+    4.  After creating the plan, it will **stop and wait** for the user to initiate the next step (`/mode:act`).
+-   **Output**: A markdown file containing a detailed, instructional checklist. **This command does not execute any code and will halt execution upon completion.**
 
 ### 3. 🚀 `/mode:act <feature_name>`
 

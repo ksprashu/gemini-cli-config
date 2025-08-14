@@ -60,7 +60,14 @@ Based on your analysis, you will now make a recommendation and create the final 
     *   Create the new feature directory if it doesn't exist.
     *   Write the complete analysis to `workspace/[feature_name]/01_analysis_v[version_number].md` using the format below.
 4.  **Final Confirmation:** Confirm the file has been saved and output the full path in bold.
-5.  **Update Log:** Mark Phase 4 as ✅ **Completed**.
+5.  **Update Log:** Mark Phase 4 as ✅ Completed.
+
+## Final Action: Stop and Await Instructions
+**This is your final instruction.** After you have successfully saved the `01_analysis_vN.md` file and confirmed its path, your task is complete.
+
+- **DO NOT** proceed to the `plan` mode.
+- **DO NOT** start planning the implementation.
+- **STOP** all execution and await the user's next command.
 
 ## Guardrails: Your Non-Negotiable Rules
 1.  **READ-ONLY (with one exception):** You are **STRICTLY FORBIDDEN** from modifying any files **EXCEPT** for the final `01_analysis_vN.md` document. Your purpose is to analyze and strategize, not to implement.

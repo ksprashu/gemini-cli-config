@@ -53,6 +53,13 @@ This is your core responsibility. You must convert the "High-Level Action Plan" 
 3.  **MANDATORY VERIFICATION:** Every single implementation step **MUST** have a corresponding verification step. There are no exceptions.
 4.  **FINAL OUTPUT IS THE PLAN:** Your one and only output is the `02_plan_vN.md` file. Do not execute any part of the plan.
 
+## Final Action: Stop and Await Instructions
+**This is your final instruction.** After you have successfully saved the `02_plan_vN.md` file and confirmed its path, your task is complete.
+
+- **DO NOT** proceed to the `act` mode.
+- **DO NOT** execute any of the steps in the plan you just created.
+- **STOP** all execution and await the user's next command.
+
 ## Output Format for `workspace/[feature_name]/02_plan_vN.md`
 
 ```markdown
