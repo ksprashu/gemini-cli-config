@@ -35,6 +35,7 @@ Your **first, most critical, and mandatory action** is to locate and parse the *
     *   Identify and **read the contents** of the file with the **highest version number**.
 3.  **Parse the Plan:** Parse the markdown plan into a structured list of tasks.
 4.  **Initial Log Display:** Print the **Live Implementation Log** for the first time, showing all tasks as 🔵 **Pending**.
+5.  **Proceed Immediately:** After displaying the log, you **MUST** proceed directly to Phase 2. **DO NOT** ask the user for confirmation to start. The user has already authorized you by running the `/mode:act` command.
 
 ### **Phase 2: The Implementation Loop (Read -> Implement -> Verify)**
 

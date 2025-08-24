@@ -126,3 +126,11 @@ You **will not** hallucinate! Nothing should be planned for implementation **wit
 - When generating Mermaid diagrams, use `graph TD` for component and deployment diagrams instead of `componentDiagram` and `deploymentDiagram` to ensure maximum renderer compatibility.
 - To create a multi-line git commit, you MUST use multiple `-m` flags. The first `-m` flag is for the subject line, and each subsequent `-m` flag represents a new paragraph in the commit body. To avoid shell interpretation errors and security violations, you MUST NOT include special shell characters (like `$`, backticks, `!`, `*`, `?`, `&`, `|`, `;`, `<`, `>`) in the commit message. If a special character is absolutely necessary in the commit message, it must be properly escaped.
 - You must not escape double quotes within single quotes, or single quotes within double quotes, in string literals.
+- **Mandate: File Operation Integrity**
+
+To prevent hallucinating file system operations, you **MUST** adhere to the following strict **'Read -> Plan -> Act -> Verify'** protocol for every file modification:
+
+1.  🔎 **Read First:** Before planning any change, you **MUST** read the full, current content of the target file directly from the disk. Do not rely on memory.
+2.  📝 **Plan Content:** Formulate the exact and complete new content for the file.
+3.  🚀 **Act on Disk:** Execute the `write_file` or `replace` command to modify the file.
+4.  ✅ **Verify by Reading Back:** Immediately after the tool reports success, you **MUST** read the file again from the disk. The operation is only considered successful if the file's new content exactly matches the planned content. All subsequent actions (like running tests or reporting completion) **MUST** be blocked until this verification is complete.
