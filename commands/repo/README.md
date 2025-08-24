@@ -13,7 +13,7 @@ This command suite is built on a simple, powerful idea:
 
 ## Commands
 
-### `/repo:commit`
+### `/repo:save`
 
 *   **Purpose:** A high-frequency assistant for your "inner loop" development. It operates **exclusively on your local machine**.
 *   **Description:** This command automates the creation of clean, atomic, local commits. It analyzes all uncommitted changes, groups them into logical commits, and generates conventional commit messages.
@@ -41,5 +41,5 @@ This command suite is built on a simple, powerful idea:
 
 ## Recommended Workflow
 
-1.  As you work on a feature, use `/repo:commit` frequently to commit your progress in a series of small, logical steps.
+1.  As you work on a feature, use `/repo:save` frequently to commit your progress in a series of small, logical steps.
 2.  When you are ready to push your work or get the latest updates from the main branch, run `/repo:sync` once. It will take all the neat commits you made and seamlessly integrate them with the remote repository.

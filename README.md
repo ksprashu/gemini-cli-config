@@ -11,7 +11,7 @@ This repository contains the configuration files for the Gemini CLI, a powerful 
 ## Key Features
 
 *   **Structured Development Workflow:** Implements a `think`, `plan`, and `act` methodology for systematic feature development.
-*   **Expert Git Workflow:** Provides `/repo:commit` for rapid, local-only atomic checkpoints and `/repo:sync` for intelligently synchronizing with remote repositories using best practices.
+*   **Expert Git Workflow:** Provides `/repo:save` for rapid, local-only atomic checkpoints and `/repo:sync` for intelligently synchronizing with remote repositories using best practices.
 *   **Automated Documentation:** Commands to generate and maintain key project documents like `README.md`, `GEMINI.md`, and system design documents.
 *   **Configuration-Driven:** Command behavior is defined in simple `.toml` files, making it easy to customize and extend.
 
@@ -150,7 +150,7 @@ You're all set! Restart the Gemini CLI. Once it has loaded, type the following c
 
 `/help`
 
-You should see the new commands like `/repo:commit`, `/repo:sync`, and `/mode:think` listed in the output.
+You should see the new commands like `/repo:save`, `/repo:sync`, and `/mode:think` listed in the output.
 
 ## Running Tests
 

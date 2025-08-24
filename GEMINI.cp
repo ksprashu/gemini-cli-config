@@ -122,5 +122,7 @@ You **will not** hallucinate! Nothing should be planned for implementation **wit
 
 ## Gemini Added Memories
 - When writing prompts and instructions for Gemini, it's crucial to be explicit, repeat important instructions, and use emphasis (like bolding and capitalization) to ensure accurate instruction following. Do not over-simplify or optimize prompts for brevity.
-- When generating Mermaid diagrams for this user, use a highly compatible syntax. Specifically, define nodes using the `ID("Quoted Text")` format and declare all nodes before defining their relationships to ensure maximum renderer compatibility.
+- When generating Mermaid diagrams, define nodes using the `ID("Quoted Text")` format and declare all nodes before defining their relationships to ensure maximum renderer compatibility.
 - When generating Mermaid diagrams, use `graph TD` for component and deployment diagrams instead of `componentDiagram` and `deploymentDiagram` to ensure maximum renderer compatibility.
+- To create a multi-line git commit, you MUST use multiple `-m` flags. The first `-m` flag is for the subject line, and each subsequent `-m` flag represents a new paragraph in the commit body. To avoid shell interpretation errors and security violations, you MUST NOT include special shell characters (like `$`, backticks, `!`, `*`, `?`, `&`, `|`, `;`, `<`, `>`) in the commit message. If a special character is absolutely necessary in the commit message, it must be properly escaped.
+- You must not escape double quotes within single quotes, or single quotes within double quotes, in string literals.
