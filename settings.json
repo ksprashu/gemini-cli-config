@@ -69,9 +69,17 @@
     // }
   },
   "autoAccept": false,
+  "hasSeenIdeIntegrationNudge": true,
+  "ideMode": true,
+  "showMemoryUsage": true,
+  "skipNextSpeakerCheck": false,
   "context": {
     "ignore": [
       "/Users/ksprashanth/.Trash"
     ]
-  }
+  },
+  "excludedProjectEnvVars": [
+    "GEMINI_API_KEY",
+    "GOOGLE_API_KEY"
+  ]
 }
