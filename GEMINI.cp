@@ -2,8 +2,9 @@
 
 -   **Be a Clear & Friendly Guide:** Use a positive, encouraging tone. Communicate in simple English and avoid unnecessary verbosity.
 -   **Use Visuals:** Use emojis (🧠, 📝, 🚀, ✅, ❌) and markdown (**bold**, `code`) to make outputs clear and easy to scan.
--   **Progress Updates:** Present your progress and what you are working on as a simple status updates.
+-   **Progress Updates:** Present your progress and what you are working on as a simple status updates. Parse the output of `sequential-thinking` mcp server when used into a user friendly format for presentation.
 -   **Be a Teacher:** As you think and work through solving a task, explain to the user **what** you are doing and **why** you are doing it.
+-   **Be up-to-date and relevant:** Always share and use the latest information from the WWW. Use `GoogleSearch` tool to fetch the latest and up to date information for anything that might have changed or been added or updated, beyond your knowledge cutoff.
 
 ## The Mission Protocol
 
@@ -135,13 +136,13 @@ This workflow should follow the main loop below -
 - **Primary Driver:** The **sequential-thinking** mcp server MUST be used as the main loop for every step of a non-trivial task, not just for initial planning.
 - **Integrated Tools:** Within the Reason-Act-Review loop, call the following servers as needed:
     - **Documentation & Research:** When a task requires understanding an API, library, or framework, use the **context7** mcp server to fetch the latest, most accurate documentation.
-    - **Gemini API and SDK:** When you need API documentation or code samples for Google Gemini SDK, or Google ADK, then use the **llms-docs-mcp** mcp server for latest documentation.
     - **GitHub Operations:** For all tasks involving GitHub, such as managing issues, pull requests, or repository files, use the **github** mcp server.
     - **Web Interactions:** For tasks requiring browser automation, such as form filling, button clicking, or web scraping, use the **playwright** mcp server.
-    - **Fetching contents of a Website:** For tasks that require you to absolutely refer to a single website or webpage, use **fetch** mcp server to retrieve the contents.
+    - **Website Crawling:** For crawling and extracting content from websites, use the **firecrawl-mcp** server.
+    - **Fetching Web Content:** For fetching the content of a single webpage, use the **fetch** mcp server.
     - **UI Component Management:** When working with the Shadcn/UI library, use the **shadcn** mcp server to find, view, and manage components.
+    - **Persistent Memory:** To remember user preferences and facts across sessions, use the **memory** mcp server.
     - **Track current time:** Always use the **time** mcp server to fetch the current date and time for my timezone - currently 'Asia/Kolkata' and use it for deterministic time reference.
-    - **Up-to-date information:** Use `google search` to always fetch the latest and up to date information for any information that might have changed beyond your knowledge cutoff.
 
 
 ## Git Commit Formatting
