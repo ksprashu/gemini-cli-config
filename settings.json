@@ -3,8 +3,9 @@
   "checkpointing": {
     "enabled": true
   },
-  "theme": "Default",
   "usageStatisticsEnabled": true,
+  "useRipgrep": true,
+  "vimMode": false,
   "selectedAuthType": "gemini-api-key",
   "mcpServers": {
     "context7": {
@@ -68,7 +69,6 @@
     //   ]
     // }
   },
-  "autoAccept": false,
   "hasSeenIdeIntegrationNudge": true,
   "ideMode": true,
   "showMemoryUsage": true,
