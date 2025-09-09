@@ -1,26 +1,77 @@
 {
-  "theme": "Default",
-  "selectedAuthType": "gemini-api-key",
   "preferredEditor": "vscode",
-  "autoAccept": false,
   "checkpointing": {
     "enabled": true
   },
+  "theme": "Default",
   "usageStatisticsEnabled": true,
-  "context": {
-    "ignore": [
-      "/Users/ksprashanth/.Trash"
-    ]
-  },
+  "selectedAuthType": "gemini-api-key",
   "mcpServers": {
     "context7": {
-      "httpUrl": "https://mcp.context7.com/mcp"
+      "httpUrl": "https://mcp.context7.com/mcp",
+      "headers": {
+        "CONTEXT7_API_KEY": "$CONTEXT7_API_KEY"
+      }
     },
     "github": {
       "httpUrl": "https://api.githubcopilot.com/mcp/",
       "headers": {
         "Authorization": "Bearer $GITHUB_PERSONAL_ACCESS_TOKEN"
       }
+    },
+    "time": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-time"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-sequential-thinking@latest",
+        "2>&1"
+      ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-memory@latest"
+      ]
+    },
+    "firecrawl-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "$FIRECRAWL_API_KEY"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ]
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ]
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ]
     }
+  },
+  "autoAccept": false,
+  "context": {
+    "ignore": [
+      "/Users/ksprashanth/.Trash"
+    ]
   }
 }

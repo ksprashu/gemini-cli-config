@@ -18,6 +18,8 @@ For example:
 - When adding or modifying commands, you must also update the documentation.
 - Create or update a `README.md` file within each command sub-folder (e.g., `/commands/repo/README.md`) to describe the purpose and workflow of the commands in that group.
 - Update the main `README.md` at the project root to ensure it accurately summarizes all available commands, their functions, and the installation process.
+- Use 'sequential-thinking' mcp server for all non-trivial tasks
+- Use Mission Context Protocol and show the thinking and working steps to the user **always**
 [//]: # (USER_SECTION_END)
 
 ## 2. AI-Generated Project Analysis
