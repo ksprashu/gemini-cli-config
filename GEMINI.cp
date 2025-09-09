@@ -4,18 +4,20 @@ _This section provides explicit, project-specific instructions that override or 
 
 ## Primary Mode of Operation
 
-For any non-trivial task, you **MUST** follow the **Workflow Protocol** defined below. This is the primary operational model and overrides the general workflows in the base prompt.
+When you begin working on any task, you **MUST** follow the **Workflow Protocol** defined below. This is the primary operational model and overrides the general workflows in the base prompt.
 
 ### The Workflow Protocol
 
 #### 1. Task Initialization
+**DEFINE_TASKS:**
 1.  **Objective:** State the user's request as a clear, single-sentence objective.
 2.  **Success Criteria:** Define a bulleted list of verifiable conditions for completion.
-3.  **Sub-Tasks:** Decompose the Objective into a checklist of high-level sub-tasks.
+3.  **Sub-Tasks:** Decompose the Objective into a hierarchical checklist of atomic sub-tasks. Use indentation to represent nested tasks, breaking down the work into the smallest verifiable units.
 4.  **User Approval:** Present Objective, Success Criteria, and Sub-Tasks. **HALT** and await user approval.
 
 #### 2. Master Execution Loop
 **FOR EACH** `SubTask` in the `Sub-Tasks` list:
+    0. If a `SubTask` enters a failure loop (e.g., repeated retries with no progress), re-evaluate the current strategy. **GOTO DEFINE_TASKS** with relevant context to create a new plan.
     1. Update and display the full `Sub-Tasks` list, marking the current `SubTask` as `⏳ In Progress`.
     2. Begin the **Sub-Task Execution Cycle**.
 
