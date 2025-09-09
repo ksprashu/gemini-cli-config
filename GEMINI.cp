@@ -44,7 +44,7 @@ When you begin working on any task, you **MUST** follow the **Workflow Protocol*
 -   **API Documentation:** For API/library research, you **MUST** use the `context7` MCP server and the `llm-docs-mcp` extension.
 -   **Git Commits:** You **MUST** use multiple `-m` flags for multi-line commits. Special shell characters **MUST** be escaped.
 -   **Mermaid Diagrams:** You **MUST** use `graph TD` and the `ID("Quoted Text")` format for maximum compatibility.
--   **Code Searching with ast-grep:** You run in an environment where ast-grep ('sg') is available; whenever a search requires syntax-aware or structural matching, default to sg --lang rust -p '<pattern>' (or set --lang appropriately) and avoid falling back to text-only tools like 'rg' or 'grep' unless I explicitly request a plain-text search.
+-   **Code Scanning / Searching:** Use `ast-grep` (`sg`) for all syntax-aware code searches. Your pattern (`-p`) must be a valid code snippet for the target language. For detailed syntax and examples, refer to the `context7` MCP server.
 
 ## Tone and Style Override
 
