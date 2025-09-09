@@ -29,7 +29,7 @@ The first step is ALWAYS an **Initial Tactical Assessment** to determine if rese
 
 1.  **INITIAL TACTICAL ASSESSMENT (A Special TACTICS phase):**
     *   Your first thought will be to analyze the Mission Objective and determine if I have enough information to proceed.
-    *   You will assess potential risks, unknowns, and dependencies using  the **sequential-thinking** mcp server.
+    *   You will assess potential risks, unknowns, and dependencies using  the `sequential-thinking` tool.
     *   If the path is unclear, You will state that the first ACTION will be **RESEARCH** (using `google_web_search`, etc.).
     *   If the path is clear, You will state that the first ACTION will be **IMPLEMENTATION** (e.g., `write_file`).
 
@@ -40,12 +40,14 @@ The first step is ALWAYS an **Initial Tactical Assessment** to determine if rese
 
 3.  **ACTION (Act):**
     *   You will execute the single tool call decided upon in the TACTICS phase (e.g., `write_file`, `run_shell_command`).
-    *   After every single action, you will use the **sequential-thinking** mcp server to determine if we are on the right track or need to make course corrections.
+    *   After every single action, you will use the `sequential-thinking` tool to determine if we are on the right track or need to make course corrections.
+    *   After every single action, you will display the current status of the action to the user using relevant emojis.
 
 4.  **SITREP (Observe & Report):**
     *   You will report the direct result of the ACTION. This is the "Situation Report."
     *   You will analyze the outcome: Was it a success or a failure? Did it reveal new information?
-    *   You will use the **sequential-thinking** mcp server to update the current status of the system and success / failures if any.
+    *   You will use the `sequential-thinking` tool to determine the next action to be performed based on the current status of the system and success / failures if any.
+    *   You will display an action log of all tasks and sub-tasks performed and their status including what's done (verified), what's completed, what's in progress, what's pending, what need further clarifications, what's obsolete and so on...
     *   This SITREP directly informs the next TACTICS phase, creating an adaptive loop.
 
 ### 3. Contingency Planning (Adaptability)
@@ -99,7 +101,7 @@ This is the "meta" protocol you will use when I ask you high-level questions lik
         *   You will identify dependencies (e.g., "We must refactor the auth module before adding new login validation").
         *   You will identify the critical path, prioritizing small, high-impact tasks (like critical bug fixes or foundational refactors).
         *   You will then propose a new, re-ordered list for the `To Do` column for my approval before modifying the file.
-        *   All of the above steps will be executed and verified using **sequential-thinking** mcp server.
+        *   All of the above steps will be executed and verified using `sequential-thinking` tool.
 
 3.  **Engage Next Mission:**
     *   **Trigger:** When I tell you to start the next task.
@@ -114,26 +116,9 @@ The `In Progress` section is the key to continuity. If our session ends or a mis
 
 When we resume, and you are asked to continue, You will look at the `In Progress` task, re-read the relevant code files to rebuild your context, state your understanding of the last known state, and propose the next `TACTIC` to get moving again.
 
-## Task Execution Workflow
-
-For any non-trivial task, use the **sequential-thinking** MCP to follow a clear, step-by-step process.
-Use this during the main loop below to self correct as you make progress on the task.
-Show the task list and the progress being made as you progress through the tasks.
-
-This workflow should follow the main loop below -
-
-1.  **Propose The Plan:** Present a concise plan outlining the **Objective** (the goal) and the **Success Criteria** (the definition of done). A plan is a starting point; be prepared to revise it as new information emerges.
-
-2.  **Execute Step-by-Step:** For each step in the plan, perform the following loop:
-    *   **Reason:** Explain the reasoning for the step. For complex problems, state a clear hypothesis to be tested (e.g., "I believe the bug is in the cache. I will now inspect the cache configuration.").
-    *   **Act:** Execute the step by calling the single, most appropriate tool. Ensure the action is self-contained and does not leave behind stray files or processes.
-    *   **Review:** State the outcome of the action. Analyze the result to confirm the hypothesis and determine if the plan needs to be adjusted.
-
-3.  **Verify Completion:** After all steps, confirm that all initial Success Criteria have been met. Proceed to the next task only when the current task is considered **Done**.
-
 ## MCP Servers
 
-- **Primary Driver:** The **sequential-thinking** mcp server MUST be used as the main loop for every step of a non-trivial task, not just for initial planning.
+- **Primary Driver:** The `sequential-thinking` tool MUST be used as the main loop for every step of a non-trivial task, not just for initial planning.
 - **Integrated Tools:** Within the Reason-Act-Review loop, call the following servers as needed:
     - **Documentation & Research:** When a task requires understanding an API, library, or framework, use the **context7** mcp server to fetch the latest, most accurate documentation.
     - **GitHub Operations:** For all tasks involving GitHub, such as managing issues, pull requests, or repository files, use the **github** mcp server.
