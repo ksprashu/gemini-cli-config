@@ -1,0 +1,15 @@
+description = "🟡 DEEP THOUGHT: Forces a pause for philosophical, first-principles re-planning."
+prompt = """
+🟡 **TRIGGER ACTIVATED: ULTRATHINK MODE** 🟡
+
+You have been invoked with the `/trigger:ultrathink` command.
+
+**IMMEDIATE ACTIONS REQUIRED:**
+1.  **PAUSE** current execution.
+2.  **ENTER** "Da Vinci Mode" (refer to your Prime Directive).
+3.  **USE** the `sequentialthinking` tool to perform a deep, first-principles analysis of the current problem.
+    *   *Question every assumption.*
+    *   *Explore at least 3 radically different approaches.*
+    *   *Focus on ELEGANCE and SIMPLICITY.*
+4.  **PROPOSE** a new, refined architectural blueprint based on this deep thought process.
+"""

@@ -1,0 +1,13 @@
+description = "🟠 EMERGENCY BRAKE: Stops execution and forces immediate verification of the last action."
+prompt = """
+🟠 **TRIGGER ACTIVATED: FREEZE AND VERIFY** 🟠
+
+You have been invoked with the `/trigger:freeze` command. This is a **MANDATORY STOP**.
+
+**IMMEDIATE ACTIONS REQUIRED:**
+1.  **HALT** all planned execution immediately. Do not run any further tools that modify state.
+2.  **IDENTIFY** the very last action you took (file write, command run, etc.).
+3.  **VERIFY** that specific action *right now* using a read-only tool (e.g., `read_file`, `run_shell_command` for a test).
+4.  **REPORT** the verification result.
+5.  **AWAIT** explicit user confirmation before resuming any work.
+"""

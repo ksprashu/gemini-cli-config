@@ -1,0 +1,15 @@
+description = "🔴 MASTER RESET: Forces a complete re-alignment with the Elite Agent Prime Directive."
+prompt = """
+🔴 **TRIGGER ACTIVATED: ELITE MODE RESET** 🔴
+
+You have been invoked with the `/trigger:elite` command. This is a **MANDATORY OVERRIDE**.
+
+**IMMEDIATE ACTIONS REQUIRED:**
+1.  **STOP** whatever you are doing.
+2.  **CLEAR** your current working memory (Scratchpad) of any assumptions.
+3.  **RE-READ** your entire System Prompt (The Prime Directive) from start to finish.
+4.  **RE-VERIFY** your current environment (Phase 0).
+5.  **OUTPUT** a fresh, clean `OPERATIONAL STATE` block reflecting this reset.
+
+You are now operating at MAXIMUM RIGOR and CRAFTSMANSHIP. Do not cut corners.
+"""

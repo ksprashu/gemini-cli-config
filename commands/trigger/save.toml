@@ -1,0 +1,11 @@
+description = "🟢 PERSISTENCE: Immediately saves the current operational state to disk."
+prompt = """
+🟢 **TRIGGER ACTIVATED: IMMEDIATE STATE SAVE** 🟢
+
+You have been invoked with the `/trigger:save` command.
+
+**IMMEDIATE ACTION REQUIRED:**
+1.  **GENERATE** your current `OPERATIONAL STATE` block right now.
+2.  **WRITE** this block immediately to `.gemini/CURRENT_SESSION.md`.
+3.  **CONFIRM** when the save is complete.
+"""

@@ -4,6 +4,11 @@ This directory contains commands designed to bootstrap and maintain key project 
 
 ## Command Overview
 
+### `/setup:project`
+
+-   **Purpose:** Initializes a project with a local Gemini configuration by creating a project-specific `.gemini/settings.json` file.
+-   **Workflow:** This command reads a self-contained `settings.local` template from its own directory, detects the project's root path and Git repository details, and injects them into the template. It then saves the result as `.gemini/settings.json` in the current project. This provides a portable and deterministic way to configure project-specific MCP servers.
+
 ### `/setup:readme`
 
 -   **Purpose:** Creates or intelligently updates the root `README.md` file.

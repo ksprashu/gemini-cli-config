@@ -1,85 +1,119 @@
 {
-  "preferredEditor": "vscode",
-  "checkpointing": {
+  "general": {
+    "checkpointing": {
+      "enabled": true
+    },
+    "preferredEditor": "vscode",
+    "vimMode": false,
+    "disableAutoUpdate": true,
+    "previewFeatures": true
+  },
+  "advanced": {
+    "excludedEnvVars": [
+      "GEMINI_API_KEY",
+      "GOOGLE_API_KEY"
+    ]
+  },
+  "extensions": {
+    "workspacesWithMigrationNudge": [
+      "/Users/ksprashanth"
+    ]
+  },
+  "ide": {
+    "hasSeenNudge": true,
     "enabled": true
   },
-  "usageStatisticsEnabled": true,
-  "useRipgrep": true,
-  "vimMode": false,
-  "selectedAuthType": "gemini-api-key",
+  "ui": {
+    "showMemoryUsage": true
+  },
   "mcpServers": {
     "context7": {
-      "httpUrl": "https://mcp.context7.com/mcp",
-      "headers": {
-        "CONTEXT7_API_KEY": "$CONTEXT7_API_KEY"
-      }
-    },
-    // "github": {
-    //   "httpUrl": "https://api.githubcopilot.com/mcp/",
-    //   "headers": {
-    //     "Authorization": "Bearer $GITHUB_PERSONAL_ACCESS_TOKEN"
-    //   }
-    // },
-    "time": {
-      "command": "uvx",
-      "args": [
-        "mcp-server-time"
-      ]
-    },
-    // "sequential-thinking": {
-    //   "command": "npx",
-    //   "args": [
-    //     "@modelcontextprotocol/server-sequential-thinking@latest",
-    //     "2>&1"
-    //   ]
-    // },
-    // "memory": {
-    //   "command": "npx",
-    //   "args": [
-    //     "@modelcontextprotocol/server-memory@latest"
-    //   ]
-    // },
-    "firecrawl-mcp": {
       "command": "npx",
       "args": [
         "-y",
-        "firecrawl-mcp"
-      ],
-      "env": {
-        "FIRECRAWL_API_KEY": "$FIRECRAWL_API_KEY"
-      }
+        "@upstash/context7-mcp",
+        "--api-key",
+        "$CONTEXT7_API_KEY"
+      ]
     },
-    "playwright": {
+    //    "github": {
+    //      "httpUrl": "https://api.githubcopilot.com/mcp/",
+    //      "headers": {
+    //        "Authorization": "Bearer $GITHUB_PERSONAL_ACCESS_TOKEN"
+    //      }
+    //    },
+    //    "diff": {
+    //      "command": "uvx",
+    //      "args": [
+    //        "mcp-server-diff"
+    //      ]
+    //    },
+    //    "lsp": {
+    //      "command": "uvx",
+    //      "args": [
+    //        "mcp-server-lsp",
+    //        "--config",
+    //        "/Users/ksprashanth/.gemini/lsp_config.json"
+    //      ]
+    //    },
+    "sequential-thinking": {
       "command": "npx",
       "args": [
-        "@playwright/mcp@latest"
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
       ]
+      //    },
+      //    "superagent": {
+      //      "command": "uvx",
+      //      "args": [
+      //        "fastmcp",
+      //        "run",
+      //        "/Users/ksprashanth/code/github/gemini-cli-mcp-servers/superagent_server/main.py"
+      //      ]
+      //    },
+      //    "dynagent": {
+      //      "command": "uvx",
+      //      "args": [
+      //        "fastmcp",
+      //        "run",
+      //        "/Users/ksprashanth/code/github/gemini-cli-mcp-servers/dynagent_server/main.py"
+      //      ]
+      //    },
+      //    "promptgen": {
+      //      "command": "uvx",
+      //      "args": [
+      //        "fastmcp",
+      //        "run",
+      //        "/Users/ksprashanth/code/github/gemini-cli-mcp-servers/promptgen_server/main.py"
+      //      ]
     }
-    // "fetch": {
-    //   "command": "uvx",
-    //   "args": [
-    //     "mcp-server-fetch"
-    //   ]
-    // },
-    // "shadcn": {
-    //   "command": "npx",
-    //   "args": [
-    //     "shadcn@latest",
-    //     "mcp"
-    //   ]
-    // }
   },
-  "hasSeenIdeIntegrationNudge": true,
-  "ideMode": true,
-  "showMemoryUsage": true,
-  "skipNextSpeakerCheck": false,
+  "security": {
+    "auth": {
+      "selectedType": "gemini-api-key"
+    }
+  },
+  "model": {
+    "skipNextSpeakerCheck": false
+  },
+  "privacy": {
+    "usageStatisticsEnabled": true
+  },
+  "tools": {
+    "useRipgrep": true,
+    "shell": {
+      "showColor": true
+    }
+  },
   "context": {
     "ignore": [
       "/Users/ksprashanth/.Trash"
+    ],
+    "includeDirectories": [
+      "/Users/ksprashanth/tmp/gemini-tasks"
     ]
   },
-  "excludedProjectEnvVars": [
-    "GEMINI_API_KEY",
-    "GOOGLE_API_KEY"
-  ]
+  "experimental": {
+    "useModelRouter": true
+  }
 }

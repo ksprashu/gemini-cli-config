@@ -11,8 +11,9 @@ This repository contains the configuration files for the Gemini CLI, a powerful 
 ## Key Features
 
 *   **Structured Development Workflow:** Implements a `think`, `plan`, and `act` methodology for systematic feature development.
+*   **Advanced Code Analysis:** Integrates `ast-grep` for powerful, syntax-aware code searching and analysis, enabling more precise and intelligent code manipulation.
 *   **Expert Git Workflow:** Provides `/repo:save` for rapid, local-only atomic checkpoints and `/repo:sync` for intelligently synchronizing with remote repositories using best practices.
-*   **Automated Documentation:** Commands to generate and maintain key project documents like `README.md`, `GEMINI.md`, and system design documents.
+*   **Automated Project Scaffolding:** A suite of `/setup` commands to initialize project-specific settings and generate comprehensive documentation like `README.md`, `GEMINI.md`, and system design documents.
 *   **Configuration-Driven:** Command behavior is defined in simple `.toml` files, making it easy to customize and extend.
 
 ## Tech Stack
@@ -48,10 +49,11 @@ You have two options for installing these configurations. You can either copy th
 
 This method is straightforward and involves copying the files into your Gemini configuration directory.
 
-1.  **Copy the Core `GEMINI.md` Template:**
-    This file provides a foundational set of instructions for the AI.
+1.  **Copy the Core Protocol Files:**
+    These files provide the foundational instruction set for the AI.
     ```bash
-    cp GEMINI.cp ~/.gemini/GEMINI.md
+    cp AGENTS.md ~/.gemini/AGENTS.md
+    cp GEMINI.md ~/.gemini/GEMINI.md
     ```
 
 2.  **Copy the Command Palettes:**
@@ -85,13 +87,16 @@ This method links the configuration files from this repository directly to your 
 
 > **Note:** Make sure you are in the root of this cloned repository before running these commands.
 
-1.  **Link the Core `GEMINI.md` Template:**
-    This links the base AI instructions file.
+1.  **Link the Core Protocol Files:**
+    This links the base AI instructions and the user-facing configuration file.
     ```bash
-    # Remove the copied file if it exists
+    # Remove the old files if they exist
+    rm -f ~/.gemini/AGENTS.md
     rm -f ~/.gemini/GEMINI.md
-    # Create the symbolic link
-    ln -s "$(pwd)/GEMINI.cp" ~/.gemini/GEMINI.md
+
+    # Create the symbolic links
+    ln -s "$(pwd)/AGENTS.md" ~/.gemini/AGENTS.md
+    ln -s "$(pwd)/GEMINI.md" ~/.gemini/GEMINI.md
     ```
 
 2.  **Link Your Desired Command Palettes:**
