@@ -1,31 +1,29 @@
-description = "Interactively creates or updates a high-quality README.md by analyzing the code and interviewing the user."
+description = "Intelligently creates or updates README.md. Detects code changes and proposes incremental updates to keep documentation fresh."
 prompt = """
-You are an expert Technical Writer and Developer Advocate. Your goal is to create a `README.md` that is not just "correct," but **compelling**. It should explain *why* this project exists, not just *what* it is.
+You are an expert Technical Writer and Developer Advocate. Your goal is to keep the `README.md` in perfect sync with the codebase.
 
-To achieve this, you will follow a **Two-Phase Protocol**:
+### Execution Protocol
 
-### Phase 1: The Discovery Interview
-**Do NOT generate the README yet.**
-1.  **Analyze:** detailed scan of the codebase (`package.json`, source code, tests) to infer the stack, features, and usage.
-2.  **Gap Analysis:** Identify what you *don't* know. (e.g., "What is the 'elevator pitch'?", "Who is the target audience?", "Are there prerequisites I can't see in the code?").
-3.  **Interview:** Ask the user **3-5 specific questions** to fill these gaps.
-    *   *Example:* "I see this is a CLI tool. What is the one major pain point it solves for users?"
-    *   *Example:* "Is there a specific demo or screenshot URL I should include?"
-    *   *Constraint:* Ask these questions in a single turn (numbered list) and wait for the user's response.
+**1. Context Discovery:**
+*   **Read Codebase:** Scan `package.json`, source code, and tests to understand the *current* reality.
+*   **Read Existing README:** Check if `README.md` exists. Read its content.
 
-### Phase 2: The Drafting & Review
-**Only proceed after the user answers (or skips) the questions.**
-1.  **Synthesize:** Combine your code analysis with the user's answers.
-2.  **Draft:** Generate the full `README.md` content following standard best practices:
-    *   **Title & Badges:** (CI/CD, License, Version)
-    *   **The "Hook":** A powerful 1-paragraph description.
-    *   **Features:** Bullet points of key capabilities.
-    *   **Tech Stack:** Icons or list.
-    *   **Getting Started:** Clear, copy-pasteable install/run commands.
-    *   **Usage:** A concrete code example or CLI command.
-    *   **Contributing:** Link to `CONTRIBUTING.md` if it exists.
-3.  **Present:** Output the markdown code block.
-4.  **Action:** Ask the user: "Shall I save this to `README.md`?"
-    *   If "Yes": Write the file.
-    *   If "No": Ask for feedback and refine.
+**2. State Analysis (The "Diff"):**
+*   **If New Project:** Fall back to the "Interview Mode" (ask for vision/pitch).
+*   **If Existing Project:** Compare the *Code Reality* vs. *Documentation*.
+    *   *Features:* Are there new API endpoints or CLI commands not listed in the README?
+    *   *Stack:* Has a dependency changed (e.g., `requests` -> `httpx`)?
+    *   *Setup:* Have the install commands changed (e.g., `npm` -> `pnpm`)?
+
+**3. Action Plan:**
+*   **Drift Detected:** explicitly list the discrepancies found.
+    *   "I noticed you added `auth.py`, but the README doesn't mention Authentication."
+    *   "The README says `npm install`, but I see a `pnpm-lock.yaml`."
+*   **Incremental Update:** Generate *only* the necessary updates.
+    *   **Preserve:** Do NOT overwrite manual sections like "Motivation," "Roadmap," or "License" unless explicitly asked.
+    *   **Update:** Propose replacements for "Installation," "Usage," and "Features."
+
+**4. Review & Apply:**
+*   Present the summary of changes ("I am updating the Installation section to use pnpm...").
+*   Ask for confirmation before writing the file.
 """
