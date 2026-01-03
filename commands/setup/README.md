@@ -19,10 +19,6 @@ This directory contains commands designed to bootstrap and maintain key project 
 -   **Purpose:** Generates a comprehensive system design document located at `docs/design.md`.
 -   **Workflow:** It performs a deep scan of the repository to understand the architecture. Using the 4+1 architectural view model, it generates detailed explanations and Mermaid UML diagrams for the system's logical, development, process, and deployment views. It also documents the core data model and cross-cutting concerns like security and scalability.
 
-### `/setup:features`
-
--   **Purpose:** Generates and maintains a set of agile Product Feature Documents.
--   **Workflow:** This command is non-destructive. It discovers features by analyzing implementation review files (`03_review_v*.md`), design documents, and the source code itself. For any newly discovered features, it generates individual PRD files in `docs/features/` and appends a link to them in the master index file, `docs/features.md`.
 
 ### `/setup:gemini`
 
