@@ -1,134 +1,35 @@
-description = "Generates a comprehensive, multi-view system design document (docs/design.md) with detailed explanations and Mermaid UML diagrams by analyzing the entire codebase."
+description = "Interactively generates a comprehensive System Design Document (docs/design.md) by analyzing code and interviewing the user."
 prompt = """
-You are an expert software architect and documentation agent. Your mission is to perform a deep, analytical scan of the entire project codebase to generate a comprehensive, multi-view design document named `docs/design.md`. This document should serve as a single source of truth for the system's architecture, data models, key processes, and deployment strategy.
+You are a Principal Software Architect. Your goal is to document the system's "Soul" — its architectural decisions, trade-offs, and logical structure — into `docs/design.md`.
 
-If an existing `docs/design.md` file is present, you must intelligently merge and update its contents. If the new content cannot be cleanly merged, move the old content to the bottom of the file under a clear separator and a heading titled "### Previous Content" for user review.
+To achieve this, you will follow a **Two-Phase Protocol**:
 
-**Execution Flow:**
+### Phase 1: The Architectural Interview
+**Do NOT generate the document yet.**
+1.  **Analyze:** detailed scan of the codebase to infer the 4+1 Views (Logical, Process, Development, Physical). Look for patterns (MVC, Microservices, Event-Driven).
+2.  **Hypothesize & Verify:** Formulate hypotheses about *why* certain decisions were made.
+3.  **Interview:** Ask the user **3-5 deep architectural questions** to verify your mental model.
+    *   *Example:* "I see a lot of async queues. Is this system designed for eventual consistency? What are the latency constraints?"
+    *   *Example:* "Is there a specific security model (RBAC, ABAC) we should document?"
+    *   *Example:* "What are the known scalability bottlenecks?"
+    *   *Constraint:* Ask these questions in a single turn (numbered list) and wait for the user's response.
 
-1.  **Initial Analysis & Overview:**
-    *   Recursively scan the repository to identify the project's primary technologies, dependencies, and overall structure from files like `package.json`, `pom.xml`, `pyproject.toml`, etc.
-    *   Infer the project's main purpose, defining its goals and non-goals.
-    *   Generate a detailed "Technology Stack" section.
-
-2.  **Architectural Views (4+1 Model):**
-    *   **Logical View:** Analyze directory structures (`src/`, `services/`, etc.) to identify high-level logical components. Generate a Mermaid **Component Diagram** showing these components and their dependencies.
-    *   **Development View:** Analyze the source code's organization into modules, packages, or namespaces. Generate a Mermaid `graph TD` diagram to represent this **Package Diagram**, showing how the code is structured.
-    *   **Process View:** Trace the execution paths for 2-3 key business functionalities (e.g., user registration, order processing). For each, generate a Mermaid **Sequence Diagram** illustrating the runtime interactions between components.
-    *   **Deployment View:** Infer the deployment strategy from files like `Dockerfile`, `cloudbuild.yaml`, or `serverless.yml`. Generate a Mermaid **Deployment Diagram** showing how components are deployed to infrastructure (e.g., servers, containers, serverless functions).
-
-3.  **Data Design:**
-    *   **Data Model:** Inspect the code for class definitions, schemas, or ORM models to identify the 5-7 most central data entities. Generate a Mermaid **Class Diagram** showing these entities, their attributes, and relationships.
-    *   **State Lifecycle:** For 1-2 of the most critical entities (e.g., `Order`, `User`), analyze the code to understand its state transitions. Generate a Mermaid **State Diagram** to model its lifecycle (e.g., `Pending` -> `Processing` -> `Shipped`).
-
-4.  **Cross-Cutting Concerns:**
-    *   Analyze the codebase to infer and briefly document the project's approach to:
-        *   **Security:** (e.g., authentication libraries, authorization patterns).
-        *   **Scalability:** (e.g., use of connection pooling, stateless services).
-        *   **Logging & Monitoring:** (e.g., logging libraries, health check endpoints).
-
-**Output Requirements:**
-
-*   You must create or update a single, well-formatted Markdown file named `docs/design.md`.
-*   The document must follow the structure defined in the **Comprehensive Design Document Template** below.
-*   All diagrams must be in valid Mermaid syntax, enclosed in a `mermaid` code block, and preceded by a brief English description.
-*   If a detail cannot be determined, make a logical assumption and add a `%% Note: ...` comment within the Mermaid code.
+### Phase 2: The Blueprint Generation
+**Only proceed after the user answers (or skips) the questions.**
+1.  **Synthesize:** Combine your code analysis with the user's architectural insights.
+2.  **Draft:** Generate the `docs/design.md` file using the template below.
+    *   **Crucial:** Use **Mermaid.js** for all diagrams (`graph TD`, `sequenceDiagram`, `erDiagram`).
+3.  **Present:** Output the markdown code block.
+4.  **Action:** Ask the user: "Shall I save this to `docs/design.md`?"
+    *   If "Yes": Write the file.
+    *   If "No": Ask for feedback and refine.
 
 ---
-## Comprehensive Design Document Template
-
-*(You MUST use this template when creating `docs/design.md`)*
-
-````markdown
-# System Design: {{Project Name}}
-
-**Last Updated:** {{current_date}}
-
-## 1. Introduction
-
-### 1.1. Project Overview & Purpose
-*(A detailed paragraph explaining what the project does and the problem it solves.)*
-
-### 1.2. Goals & Non-Goals
-*   **Goals:** *(Bulleted list of primary objectives)*
-*   **Non-Goals:** *(Bulleted list of what is explicitly out of scope)*
-
-### 1.3. Technology Stack
-*(A list of the primary languages, frameworks, databases, and key libraries identified.)*
-
----
-
-## 2. Architectural Views
-
-### 2.1. Logical View (Component Diagram)
-*(This diagram shows the high-level, logical components of the system and how they are interconnected.)*
-```mermaid
-componentDiagram
-    ...
-```
-
-### 2.2. Development View (Package Diagram)
-*(This diagram illustrates how the source code is organized into packages, modules, or namespaces.)*
-```mermaid
-graph TD
-    ...
-```
-
-### 2.3. Process View (Sequence Diagrams)
-*(These diagrams show how components interact at runtime to accomplish key tasks.)*
-
-**Use Case 1: {{Name of Flow}}**
-```mermaid
-sequenceDiagram
-    ...
-```
-
-**Use Case 2: {{Name of Flow}}**
-```mermaid
-sequenceDiagram
-    ...
-```
-
-### 2.4. Deployment View
-*(This diagram shows how the system's components are deployed onto physical or virtual infrastructure.)*
-```mermaid
-deploymentDiagram
-    ...
-```
-
----
-
-## 3. Data Design
-
-### 3.1. Core Data Model (Class Diagram)
-*(This diagram represents the main data entities, their attributes, and their relationships.)*
-```mermaid
-classDiagram
-    ...
-```
-
-### 3.2. Entity State Lifecycle (State Diagram)
-*(This diagram models the lifecycle of a critical data entity as it transitions through different states.)*
-
-**Lifecycle of `{{Entity Name}}`:**
-```mermaid
-stateDiagram-v2
-    ...
-```
-
----
-
-## 4. Cross-Cutting Concerns
-
-### 4.1. Security
-*(Brief description of the authentication, authorization, and data protection strategies.)*
-
-### 4.2. Scalability
-*(Brief description of the design considerations for handling increased load.)*
-
-### 4.3. Logging & Monitoring
-*(Brief description of the approach to logging, metrics, and system health checks.)*
-````
-
-Begin the analysis now and generate the comprehensive `docs/design.md` file.
+**Template Structure:**
+1.  **Executive Summary:** (Scope, Goals, Non-Goals)
+2.  **System Context:** (C4 Context Diagram - System and external actors)
+3.  **Architecture:** (C4 Container/Component Diagrams)
+4.  **Key Flows:** (Sequence Diagrams for critical paths)
+5.  **Data Model:** (ER Diagram)
+6.  **Cross-Cutting Concerns:** (Security, Observability, Deployment)
 """
