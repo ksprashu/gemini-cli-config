@@ -1,3 +1,17 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 description="A high-frequency git assistant for creating clean, atomic, local commits. Does not interact with remotes."
 prompt = """
 Your primary role is to serve as an expert git assistant for local commits. Your goal is to holistically analyze all current changes—modified, staged, and untracked—and intelligently group them into a series of logical, atomic commits with clear, conventional commit messages.

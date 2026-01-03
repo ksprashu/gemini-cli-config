@@ -171,6 +171,10 @@ Contributions are welcome! If you have ideas for new commands or improvements to
 4.  Push to the branch (`git push origin feature/your-feature-name`).
 5.  Open a Pull Request.
 
+## Disclaimer
+
+This is not an officially supported Google product.
+
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the Apache License, Version 2.0. See the [LICENSE](LICENSE) file for details.
