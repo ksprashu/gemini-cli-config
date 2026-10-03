@@ -1,0 +1,27 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+description = "🟠 EMERGENCY BRAKE: Stops execution and forces immediate verification of the last action."
+prompt = """
+🟠 **TRIGGER ACTIVATED: FREEZE AND VERIFY** 🟠
+
+You have been invoked with the `/trigger:freeze` command. This is a **MANDATORY STOP**.
+
+**IMMEDIATE ACTIONS REQUIRED:**
+1.  **HALT** all planned execution immediately. Do not run any further tools that modify state.
+2.  **IDENTIFY** the very last action you took (file write, command run, etc.).
+3.  **VERIFY** that specific action *right now* using a read-only tool (e.g., `read_file`, `run_shell_command` for a test).
+4.  **REPORT** the verification result.
+5.  **AWAIT** explicit user confirmation before resuming any work.
+"""

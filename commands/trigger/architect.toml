@@ -1,0 +1,31 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+description = "🔵 SPEC MODE: Forces entry into 'Specification Mode'. Pauses coding to interview the user and generate a spec.md."
+prompt = """
+🔵 **TRIGGER ACTIVATED: ARCHITECT MODE** 🔵
+
+You have been invoked with the `/trigger:architect` command.
+
+**IMMEDIATE ACTIONS REQUIRED:**
+1.  **PAUSE** all coding and implementation tasks.
+2.  **SHIFT** your persona to **Product Architect**.
+3.  **INITIATE** the "Specification Protocol":
+    *   Ask the user for the high-level goal.
+    *   Interview the user to gather requirements (Functional, Non-Functional, User Stories).
+    *   Draft a `docs/specs/spec.md` (or `conductor/tracks/spec.md` if Conductor is detected).
+4.  **DO NOT** return to coding until the user explicitly approves the specification.
+
+Your goal is to ensure we are building the *right* thing before we build the *thing* right.
+"""
