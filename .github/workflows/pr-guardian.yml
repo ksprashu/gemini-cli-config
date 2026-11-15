@@ -21,8 +21,10 @@ jobs:
     # actions, an edit that retargets the base (changes.base.ref.from set; the verdict is bound
     # to the reviewed base, GHSA-6h55-p37r-jc34; title/body edits never start a run), the
     # human-override label being applied or removed (removal recomputes the verdict, so an
-    # override's success never outlives the label), and non-bot /ai-review comments on PRs
-    # from writers (OWNER, MEMBER, COLLABORATOR, as route.py's WRITE_ASSOCIATIONS).
+    # override's success never outlives the label), the needs-human label being removed (the
+    # verdict is recomputed; when the owner removed it, that round's escalation is acknowledged,
+    # never one a workflow change raised), and non-bot /ai-review comments on PRs from writers
+    # (OWNER, MEMBER, COLLABORATOR, as route.py's WRITE_ASSOCIATIONS).
     # Outsiders, bots, plain issues, other labels and title/body edits never join a
     # concurrency group, so they cannot cancel a run.
     if: >-
@@ -33,23 +35,39 @@ jobs:
       || (github.event.action == 'edited' && github.event.changes.base != null
       && github.event.changes.base.ref.from != '')
       || ((github.event.action == 'labeled' || github.event.action == 'unlabeled')
-      && github.event.label.name == 'human-override')))
+      && github.event.label.name == 'human-override')
+      || (github.event.action == 'unlabeled' && github.event.label.name == 'needs-human')))
       || ((github.event_name == 'pull_request_review_comment'
       || (github.event_name == 'issue_comment' && github.event.issue.pull_request != null))
       && github.event.comment.user.type != 'Bot'
-      && startsWith(github.event.comment.body, '/ai-review')
+      && (github.event.comment.body == '/ai-review'
+      || startsWith(github.event.comment.body, '/ai-review '))
       && (github.event.comment.author_association == 'OWNER'
       || github.event.comment.author_association == 'MEMBER'
       || github.event.comment.author_association == 'COLLABORATOR'))
-    # Reviews cancel superseded reviews; verdict-only runs (override label on/off, escalation) queue
-    # instead, so one writer action never cancels another's verdict in flight.
+    # Only review triggers (PR pushes and the like, dispatch, the owner's bare /ai-review, and a
+    # wontfix inside a finding thread) cancel superseded reviews. Verdict-only runs (labels, escalate,
+    # help, explain, override, a top-level wontfix, unknown commands) queue instead, so an
+    # informational command never cancels a review that route.py would not restart.
+    # GitHub Actions == and startsWith are case-insensitive and do not trim; commands.py shares
+    # this exact grammar (no leading/trailing space on bare /ai-review, one ASCII space before args).
     concurrency:
       group: >-
         pr-guardian-${{ github.event.pull_request.number || github.event.issue.number || inputs.pr }}-${{
         (github.event.action == 'labeled' || github.event.action == 'unlabeled'
-        || startsWith(github.event.comment.body, '/ai-review escalate'))
+        || (github.event.comment.body != null
+        && !(github.event.comment.body == '/ai-review' && github.event.comment.author_association == 'OWNER'
+        && github.event.comment.user.login == github.repository_owner)
+        && !(github.event_name == 'pull_request_review_comment'
+        && startsWith(github.event.comment.body, '/ai-review wontfix'))))
         && 'verdict' || 'review' }}
-      cancel-in-progress: ${{ !(github.event.action == 'labeled' || github.event.action == 'unlabeled' || startsWith(github.event.comment.body, '/ai-review escalate')) }}
+      cancel-in-progress: >-
+        ${{ !(github.event.action == 'labeled' || github.event.action == 'unlabeled'
+        || (github.event.comment.body != null
+        && !(github.event.comment.body == '/ai-review' && github.event.comment.author_association == 'OWNER'
+        && github.event.comment.user.login == github.repository_owner)
+        && !(github.event_name == 'pull_request_review_comment'
+        && startsWith(github.event.comment.body, '/ai-review wontfix')))) }}
     uses: ksprashu/pr-guardian/.github/workflows/review.yml@e4ab1858f0ca1d70567e790f22879199f2ecae22
     with:
       guardian_ref: e4ab1858f0ca1d70567e790f22879199f2ecae22
